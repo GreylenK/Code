@@ -1,0 +1,80 @@
+//* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+//* Program name    :   The Twin Primes                                 * 
+//*                                                                     * 
+//* Written by      : Greylen Fernandez                                 * 
+//*                                                                     * 
+//* Purpose         : Takes two user inputs and displays twin primes    * 
+//*                                                                     * 
+//* Inputs          : User inputs two integers                          *
+//*								                                        * 
+//*                                                                     * 
+//* Outputs         :  Displays prime and non prime numbers             * 
+//*                      with a sum of prime numbers                    * 
+//* Calls           : 1 internal call and no external calls             * 
+//*                                                                     * 
+//* Structure       : BEGIN                                             * 
+//*                        Straight line code no sub-processes          * 
+//*                   STOP                                              * 
+//*                        End of Program                               * 
+//*                                                                     * 
+//*---------------------------------------------------------------------* 
+//* Collaboration   : Hayden Botine & Family Friend                     * 
+//*             https://www.w3schools.com/cpp/cpp_booleans.asp          * 
+//*                				                                        * 
+//*                                                                     * 
+//*---------------------------------------------------------------------* 
+//* Change Log:                                                         * 
+//*                         Revision                                    * 
+//*       Date    Changed  Rel Ver Mod Purpose                          * 
+//* 03/13/23     						                                * 
+//*                                                                     * 
+//* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+#include <iostream>
+using namespace std;
+//Declairing boolean
+bool prime(long number)
+{
+    if (number == 1 or number == -1)
+        return true;
+    int boolPrime;
+    for (boolPrime = 2; boolPrime <= number / 2; boolPrime++)
+        if ((number % boolPrime) == 0)
+            break;
+    if (boolPrime > number / 2)
+        return true;
+    return false;
+}
+//Main Function
+int main()
+{
+    //Declairing Variables
+    long x, y, z;
+    int count = 0;
+    long sum = 0;
+    //Console Prompt
+    cout << "Enter two positive integers <1,000,000,000: ";
+    cin >> y;
+    cin >> z;
+
+    for (x = y; x <= z; x = x + 2)
+    {
+        if (prime(x - 2) and prime(x))
+        {
+            cout << (x - 2) << " and " << x << " are twin primes." << endl;
+            count++;
+
+        }
+        if (prime(x))
+        {
+            sum += x;
+        }
+    }
+    //Console Output
+    cout << "The sum of prime numbers between " << y << " and " << z << " =" << sum << endl;
+    cout << "The number of twin primes between 1 and 100 =" << count << endl;
+    char q;
+    cout << "\nPress any key to Exit.";
+    cin.ignore(2, '\n');
+    cin.get(q);
+    return 0;
+}
