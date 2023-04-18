@@ -1,0 +1,113 @@
+//* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+//* Program name: Letter Counter                                        *
+//*                                                                     *
+//* Written by: Greylen Fernadnez                                       *
+//*                                                                     *
+//* Purpose: Counts Letters from "L3Data.txt" and outputs them          *
+//*          into txt displaying amount of numbers and percentages.     *
+//* Inputs:  User inputs file name to read from and desired output file *
+//*           name to output data.                                      *
+//*                                                                     *
+//* Outputs: Outputs Letter, Count, and Percentage of Occurrence.       *
+//*                                                                     *
+//* Calls: N\A                                                          *
+//*                                                                     *
+//* Structure: BEGIN                                                    *
+//*                        Straight line code no sub-processes          *
+//*                   STOP                                              *
+//*                        End of Program                               *
+//*---------------------------------------------------------------------*
+//* Collaboration: Hayden Botien                                        *
+//*---------------------------------------------------------------------*
+//* Change Log:                                                         *
+//  Date: 04/18/2023                                                    *
+//***********************************************************************
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+#include <string>
+using namespace std;
+
+struct letterType{
+	char letter;
+	int counting;
+};
+//Opening the file function
+void openFile(ifstream & filein, ofstream & fileout) {
+	string userinput;
+	string userinput2;
+	//Prompting the user
+	cout << "Enter the name of the input file: " << endl;
+	cin >> userinput;
+	cout << "Enter the name of the output file: " << endl;
+	cin >> userinput2;
+
+	filein.open(userinput, ios::in);
+	fileout.open(userinput2, ios::app);
+}
+
+//Counts the Characters in the file
+void count(letterType * counts, ifstream & file) {
+	char c;
+	while (file >> c) {
+		
+		counts[c].counting += 1;
+	}
+}
+
+//Prints the results!
+void printResult(letterType * counts, ofstream & file) {
+
+	file << "Letter  Count  Percentage of Occurrence" << endl;
+
+	int total{ 0 };
+	for (int i = 0; i < 256; i++) {
+		if (counts[i].letter >= 'A' && counts[i].letter <= 'Z')
+			total += counts[i].counting;
+		if (counts[i].letter >= 'a' && counts[i].letter <= 'z')
+			total += counts[i].counting;
+	}
+
+	cout << "Total number of letters input -->: " << total << endl;
+
+	for (int i = 0; i < 256; i++) {
+		if (counts[i].letter >= 'A' && counts[i].letter <= 'Z')
+			file << "  " << counts[i].letter << '\t' << counts[i].counting << '\t' << fixed << setprecision(2) << ((double)counts[i].counting * 100 / total) << "%" << endl;
+		if (counts[i].letter >= 'a' && counts[i].letter <= 'z')
+			file << "  " << counts[i].letter << '\t' << counts[i].counting << '\t' << fixed << setprecision(2) << ((double)counts[i].counting * 100 / total) << "%" << endl;
+	}
+
+}
+
+int main() {
+	
+	
+	//Initializes array
+	letterType counts[256]{ letterType{0,0} };
+	for (int i = 0; i < 256; i++) {
+		counts[i] = letterType{ (char)i,0 };
+	
+	}
+
+	ifstream myFileIn;
+	ofstream myFileOut;
+	openFile(myFileIn, myFileOut);
+	//Error for if the file does not exist
+	if (myFileIn.fail()) {
+		cout << "That file does not exist.";
+		myFileIn.close();
+		return 0;
+	} 
+	//calling count function
+	count(counts, myFileIn);
+	//calling printResult function
+	printResult(counts, myFileOut);
+	myFileIn.close();
+	myFileOut.close();
+
+	char q;
+	cout << "Press any key to Exit.";
+	cin.ignore(2, '\n');
+	cin.get(q);
+	return 0;
+}
