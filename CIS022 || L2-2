@@ -1,0 +1,110 @@
+//* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+//* Program name    :  Letters to Phone Number                          * 
+//*                                                                     * 
+//* Written by      : Greylen Fernandez                                 * 
+//*                                                                     * 
+//* Purpose         : To convert letters to Phone number.            	*
+//*								                                        * 
+//*                                                                     * 
+//* Inputs          : User inputs letters to be converted to numbers    *
+//*			                                            				* 
+//*                                                                     * 
+//* Outputs         :  Converted Phone Number                           * 
+//*                                                                     * 
+//* Calls           : 1 internal call no external calls                 * 
+//*                                                                     * 
+//* Structure       : BEGIN                                             * 
+//*                        Straight line code no sub-processes          * 
+//*                   STOP                                              * 
+//*                        End of Program                               * 
+//*                                                                     * 
+//*---------------------------------------------------------------------* 
+//* Collaboration   : Hayden Botine                                     * 
+//*          https://www.w3schools.com/cpp/cpp_switch.asp               * 
+//*          https://www.w3schools.com/cpp/cpp_while_loop.asp      		* 
+//*                                                                     * 
+//*---------------------------------------------------------------------* 
+//* Change Log:                                                         * 
+//*                         Revision                                    * 
+//*       Date    Changed  Rel Ver Mod Purpose                          * 
+//* 03/12/23     						                                * 
+//*                                                                     * 
+//* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+#include<iostream>
+#include<fstream>
+#include<iomanip>
+#include<string>
+using namespace std;
+char convert(char c) {
+	switch (c) {
+		//Starting the conversions
+	case 'A': case 'a': case 'B': case 'b':case 'C': case 'c': return '2';
+
+	case 'D': case 'd': case 'E': case 'e':case 'F': case 'f': return '3';
+
+	case 'G': case 'g': case 'H': case 'h':case 'I': case 'i': return '4';
+
+	case 'J': case 'j': case 'K': case 'k':case 'L': case 'l': return '5';
+
+	case 'M': case 'm': case 'N': case 'n':case 'O': case 'o': return '6';
+
+	case 'P': case 'p': case 'Q': case 'q':case 'R': case 'r':case 'S': case 's': return '7';
+
+	case 'T': case 't': case 'U': case 'u':case 'V': case 'v': return '8';
+
+	case 'W': case 'w': case 'X': case 'x':case 'Y': case 'y':case 'Z': case 'z': return '9';
+
+	case '-': return '0';
+
+	case '_': return '1';
+
+	default:cout << "\n Invalid Input";
+
+		return 0;
+	}
+}
+
+int main() {
+	char c;
+
+	cout << "Enter Y/y to covert the telephone number form letters to digits." << endl;
+	cout << "Enter any other letter to terminate the program." << endl;
+
+	c = getchar();
+	cin.ignore();
+
+	// Start the while loop
+	while (c == 'Y' || c == 'y') {
+		// Input variables.
+		string user;
+		int count = 0;
+		// user prompt
+		cout << "Enter a telephone number using 7 or more letters" << endl;
+		cout << "for Prefix and number, only the first 7 letters are used" << endl;
+		cout << "and dashes '-' are ZEROS, underscores '_' are ONES" << endl;
+		cout << "ALL OTHER SYMBOLS ARE IGNORED." << endl;
+		// get the string.
+		getline(cin, user);
+		cout << "\nThe corresponding telephone number is:" << endl;
+		// Start of for loop
+		for (int i = 0; i < user.length() && i < 10; i++) {
+			if (user[i] == ' ') {
+				continue;
+			}
+			cout << convert(user[i]);
+			count++;
+			if (count == 3)
+				cout << "-";
+		}
+		// End of for loop
+		cout << "\nTo process another telephone number, enter Y/y \nEnter any other letter to terminate the program. " << endl;
+		c = getchar();
+		cin.ignore();
+	}
+	//End of while loop
+	char q;
+	cout << "\nPress any key to Exit.";
+	cin.ignore(2, '\n');
+	cin.get(q);
+	return 0;
+}
