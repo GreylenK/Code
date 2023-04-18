@@ -1,0 +1,89 @@
+//* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+//* Program name    :  Cookie Calculator                                * 
+//*                                                                     * 
+//* Written by      : Greylen Fernandez                                 * 
+//*                                                                     * 
+//* Purpose         : To Calculate cookies per box & container.         *
+//*			                                                		    * 
+//*                                                                     * 
+//* Inputs          : User enters total number of cookies & cookies per *
+//*						box/container.                                  * 
+//*                                                                     * 
+//* Outputs         :  Displays number of cookies that can fit in boxes	* 
+//*                     and containers with leftovers                   * 
+//* Calls           : No internal or external calls                     * 
+//*                                                                     * 
+//* Structure       : BEGIN                                             * 
+//*                        Straight line code no sub-processes          * 
+//*                   STOP                                              * 
+//*                        End of Program                               * 
+//*                                                                     * 
+//*---------------------------------------------------------------------* 
+//* Collaboration   : Hayden Botine                                     * 
+//*                                                                     * 
+//*                				                                        * 
+//*                                                                     * 
+//*---------------------------------------------------------------------* 
+//* Change Log:                                                         * 
+//*                         Revision                                    * 
+//*       Date    Changed  Rel Ver Mod Purpose                          * 
+//* 03/12/23     						                                * 
+//*                                                                     * 
+//* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+	//declairing variables
+	int cookiesperBox = 24;
+	int cookieperCont = 75;
+	int totalCookies;
+	int boxesforCookies;
+	int leftoverCookies;
+	int contforCookies;
+	int leftoverCont;
+	string input;
+
+
+	cout << "Enter the number of cookies per box or press";
+	cout << "\n 'Enter' to use the default of 24 per box." << endl;
+	getline(cin, input);
+	if (input.length() > 0) {
+		cookiesperBox = atoi(input.c_str());
+	}
+	else
+	{
+		cout << "Default cookies per box will be used." << endl;
+	}
+	
+
+	cout << "\n Enter the number of boxes per container or press";
+	cout << "\n 'Enter' to use the default of 75 boxes per container." << endl;
+	getline(cin, input);
+	if (input.length() > 0) {
+		cookieperCont = atoi(input.c_str());
+	}
+	else
+	{
+		cout << "Default boxes per container will be used." << endl;
+	}
+	cout << "\n Enter the total number of cookies: ";
+		cin >> totalCookies;
+	//Calculations
+		boxesforCookies = totalCookies / cookiesperBox;
+		leftoverCookies = boxesforCookies / cookiesperBox;
+		contforCookies = totalCookies / cookieperCont;
+		leftoverCont = contforCookies / cookieperCont;
+
+		cout << "The number of cookie boxes needed to hold the cookies: ", boxesforCookies;
+		cout << "\n Leftover cookies: ", leftoverCookies;
+		cout << "\n The number of containers needed to store the cookie boxes: ", contforCookies;
+		cout << "\n Leftover boxes: ", leftoverCont;
+
+		char q;
+		cout << "\nPress any key to Exit.";
+		cin.ignore(2, '\n');
+		cin.get(q);
+		return 0;
+}
